@@ -1,0 +1,102 @@
+<!-- 
+    Author: Christopher Gilbert
+    Description: Palindrome Checker
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker</title>
+    <style>
+        /* Setting a background color for the entire page */
+        body {
+            background-color: #58ff74;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+
+        /* Styling of the input field */
+        input[type="text"] {
+            width: 200px;
+            padding: 10px;
+            margin: 20px;
+            border-radius: 5px;
+            border: 1px solid #edfd5f;
+        }
+
+        /* Styling of the buttons */
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #cf0000;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Hover effect for users to know what button there on */
+        button:hover {
+            background-color: #45a049;
+        }
+
+        /* Styling of the result text */
+        #result {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        /* Styling of the header */
+        h1 {
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Main header of the page -->
+    <h1>Palindrome Checker</h1>
+    
+    <!-- Image for style -->
+    <img src="pictures/palidrome.jpg">
+    
+    <!-- Input field for user to enter a string -->
+    <input type="text" id="userInput" placeholder="Enter a string">
+    
+    <!-- Button to check if the word string is a palindrome -->
+    <button onclick="checkPalindrome()">Check</button>
+    
+    <!-- Button to reset the input field -->
+    <button onclick="resetInput()">Reset</button>
+    
+    <!-- Display the result of the palidrome -->
+    <div id="result"></div>
+
+    <!-- JavaScript code to handle palindrome checking -->
+    <script>
+        // Function to check if the entered string is a palindrome or not
+        function checkPalindrome() {
+            // Get the input value and remove spaces
+            var str = document.getElementById('userInput').value.replace(/\s+/g, '').toLowerCase();
+            
+            // Reverse the string
+            var reversedStr = str.split('').reverse().join('');
+            
+            // Check if the string is the same forwards and backwards
+            if (str === reversedStr) {
+                document.getElementById('result').innerHTML = "It's a palindrome!";
+            } else {
+                document.getElementById('result').innerHTML = "It's not a palindrome.";
+            }
+        }
+
+        // Function to reset the paldrome word
+        function resetInput() {
+            document.getElementById('userInput').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
