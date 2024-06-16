@@ -1,0 +1,149 @@
+<!-- 
+    Author: Christopher Gilbert
+    Description: Palindrome Checker with Details Validation and Background Sound
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Palindrome Checker with User Details Validation</title>
+    <style>
+        /* Setting a background color for the entire page */
+        body {background-color: #ff50ff; font-family: Arial, sans-serif; text-align: center; padding: 50px;}
+
+        /* Styling the input fields */
+        input[type="text"] {width: 200px; padding: 10px; margin: 10px; border-radius: 5px; border: 1px solid #f55555;}
+
+        /* Styling the buttons */
+        button {padding: 10px 20px; margin: 10px; border: none; border-radius: 5px; background-color: #4bdb4f; color: white; cursor: pointer;}
+
+        /* Hover effect for buttons */
+        button:hover {background-color: #4bdd52;}
+
+        /* Styling the result text */
+        #result {font-size: 1.5em; margin-top: 20px;}
+
+        /* Styling the header */
+        h1 {color: #333;}
+
+        /* Styling the warning message */
+        .warning {color: red; font-weight: bold;}
+
+        /* Styling the secret message */
+        #secretMessage {display: none; font-size: 1.5em; color: blue; margin-top: 20px;}
+
+    </style>
+</head>
+<body>
+    <!-- Background sound -->
+    <audio id="backgroundSound" loop>
+        <source src="Audio/Parakeet Talking-SoundBible.com-1998259914.mp3" >
+    </audio>
+
+    <!-- Header -->
+    <h1>Palindrome Checker with User Details Validation</h1>
+    
+    <!-- Image -->
+    <img src="Pictures/palidrome.jpg" alt="Palindrome Image" width="200" height="150">
+    
+    <!-- Spot for first name -->
+    <input type="text" id="firstName" placeholder="Enter your first name">
+    
+    <!-- Spot for last name -->
+    <input type="text" id="lastName" placeholder="Enter your last name">
+    
+    <!-- Spot for Zip Code -->
+    <input type="text" id="zipCode" placeholder="Enter your zip code">
+    
+    <!-- Spot for string-->
+    <input type="text" id="userInput" placeholder="Enter a string">
+    
+    <!-- Button for checking the palindrome -->
+    <button onclick="validateAndCheckPalindrome()">Check</button>
+    
+    <!-- Button to reset -->
+    <button onclick="resetInput()">Reset</button>
+    
+    <!-- Div to display the result -->
+    <div id="result"></div>
+    
+    <!-- Div to display warnings -->
+    <div id="warning" class="warning"></div>
+
+    <!-- Div to display the secret message -->
+    <div id="secretMessage">Congratulations! You have discovered the secret message.</div>
+
+    <!-- JavaScript code for palindrome checking -->
+    <script>
+        // Function to play the background sound
+        function playBackgroundSound() {
+            document.getElementById('audio').play(Audio);
+        }
+
+        // Function to stop the background sound
+        function stopBackgroundSound() {
+            document.getElementById('backgroundSound').pause(Audio);
+        }
+
+        // Function to validate user details and check if the entered string is a palindrome
+        function validateAndCheckPalindrome() {
+            // Get the input values
+            var firstName = document.getElementById('firstName').value.trim();
+            var lastName = document.getElementById('lastName').value.trim();
+            var zipCode = document.getElementById('zipCode').value.trim();
+            var userInput = document.getElementById('userInput').value.trim();
+
+            // Combine the first name and last name
+            var fullName = firstName + " " + lastName;
+
+            // Check if the full name has more than 20 characters
+            if (fullName.length > 20) {
+                document.getElementById('warning').innerHTML = "Full name cannot exceed 20 characters.";
+                return;
+            }
+
+            // Check if the zip code is a 5-digit number
+            if (!/^\d{5}$/.test(zipCode)) {
+                document.getElementById('warning').innerHTML = "Zip code must be 5 digits.";
+                return;
+            }
+
+            // clears the warning message
+            document.getElementById('warning').innerHTML = "";
+
+            // Convert the string to lowercase and remove spaces
+            var str = userInput.replace(/\s+/g, '').toLowerCase();
+
+            // Reverse the string
+            var reversedStr = str.split('').reverse().join('');
+
+            // Check if the string is a palindrome
+            if (str === reversedStr) {
+                document.getElementById('result').innerHTML = "It's a palindrome!";
+            } else {
+                document.getElementById('result').innerHTML = "It's not a palindrome.";
+            }
+
+            // Display the secret message
+            document.getElementById('secretMessage').style.display = "block";
+        }
+
+        // Function to reset the input fields and results
+        function resetInput() {
+            document.getElementById('firstName').value = '';
+            document.getElementById('lastName').value = '';
+            document.getElementById('zipCode').value = '';
+            document.getElementById('userInput').value = '';
+            document.getElementById('result').innerHTML = '';
+            document.getElementById('warning').innerHTML = '';
+            document.getElementById('secretMessage').style.display = 'none';
+            stopBackgroundSound(); // Stop the background sound on reset
+        }
+
+        // Plays sound when loaded
+        window.onload = playBackgroundSound;
+    </script>
+</body>
+</html>
