@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meme Mover</title>
+    <style>
+        /* CTT for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8a1a1;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden; 
+        }
+        #meme {
+            position: absolute;
+            width: 250px !important; 
+            height: 250px !important;
+        }
+        #controls {
+            margin-top: 20px;
+        }
+        #creativeText {
+            font-size: 24px;
+            color: #333;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+   
+    <!-- Name: Chris Gilbert -->
+
+    <!-- Title of the page -->
+    <h1>Move the Meme</h1>
+
+    <!-- Meme that moves around -->
+    <img id="meme" src="Pictures/meme image.webp" >
+
+    <!-- Control buttons -->
+    <div id="controls">
+        <!-- Start button -->
+        <button id="startBtn" onclick="startMoving()">Start</button>
+        <!-- Stop button -->
+        <button id="stopBtn" onclick="stopMoving()" disabled>Stop</button>
+    </div>
+
+    <!-- Text to add more detail to page -->
+    <div id="creativeText">
+        Enjoy watching the meme move around the screen!
+    </div>
+
+    <!-- JavaScript for the movement -->
+    <script>
+        // Variables to store the movement interval and the meme image element
+        let moveInterval;
+        const meme = document.getElementById('meme');
+        const startBtn = document.getElementById('startBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        const controls = document.getElementById('controls');
+
+        // Function to start moving the meme image
+        function startMoving() {
+            // Disables the start button and enables the stop button
+            startBtn.disabled = true;
+            stopBtn.disabled = false;
+
+            // Function to move the meme image to a random position
+            function moveMeme() {
+                const controlRect = controls.getBoundingClientRect();
+                let x, y;
+
+                do {
+                    x = Math.floor(Math.random() * (window.innerWidth - meme.clientWidth));
+                    y = Math.floor(Math.random() * (window.innerHeight - meme.clientHeight));
+                } while (
+                    x > controlRect.left - meme.clientWidth &&
+                    x < controlRect.right &&
+                    y > controlRect.top - meme.clientHeight &&
+                    y < controlRect.bottom
+                );
+
+                meme.style.left = `${x}px`;
+                meme.style.top = `${y}px`;
+            }
+
+            // function that moves img
+            moveMeme(); // Call once immediately to start moving
+            moveInterval = setInterval(moveMeme, 500);
+        }
+
+        // Function to stop moving the meme image
+        function stopMoving() {
+            // Disables the stop button and enables the start button
+            startBtn.disabled = false;
+            stopBtn.disabled = true;
+
+            // Clears the interval to stop moving the meme image
+            clearInterval(moveInterval);
+        }
+    </script>
+</body>
+</html>
